@@ -1,0 +1,108 @@
+{
+  "motion": {
+    "stage": "Thorlabs MAX381/M",
+    "axis_stage_settings": {
+      "x": "HS NanoMax 300 X Axis (DRV208)",
+      "y": "HS NanoMax 300 Y Axis (DRV208)",
+      "z": "HS NanoMax 300 Z Axis (DRV208)"
+    },
+    "axes": ["x", "y", "z"],
+    "piezos_integrated": true,
+    "note": "Confirmed stage. MAX381/M has stepper motor drives and closed-loop piezos. BSC203 controls the three stepper axes.",
+    "stepper_controller": "Thorlabs BSC203",
+    "piezo_controller": "TODO",
+    "interface": "Thorlabs APT/Kinesis over USB",
+    "serial_number": "TODO",
+    "axis_channels": {
+      "x": 1,
+      "y": 2,
+      "z": 3
+    },
+    "limits_mm": {
+      "x": [0.0, 4.0],
+      "y": [0.0, 4.0],
+      "z": [0.0, 4.0]
+    },
+    "z_travel_mm": "TODO: safe travel height after homing, in mm",
+    "kinesis_dir": "C:\\Program Files\\Thorlabs\\Kinesis"
+  },
+  "manual_stages": {
+    "a": {
+      "serial_number": "TODO: controller assigned to physical Stage A",
+      "axis_channels": {"x": 1, "y": 2, "z": 3},
+      "limits_mm": {"x": [0.0, 4.0], "y": [0.0, 4.0], "z": [0.0, 4.0]}
+    },
+    "b": {
+      "serial_number": "TODO: controller assigned to physical Stage B",
+      "axis_channels": {"x": 2, "y": 1, "z": 3},
+      "limits_mm": {"x": [0.0, 4.0], "y": [0.0, 4.0], "z": [0.0, 4.0]}
+    }
+  },
+  "laser": {
+    "model": "Yenista/EXFO OSICS T100",
+    "interface": "GPIB via USB",
+    "visa_resource": "TODO: e.g. GPIB0::1::INSTR",
+    "slot": 1,
+    "power_mw": 1,
+    "wavelength_min_nm": 1490,
+    "wavelength_max_nm": 1610,
+    "tuning_rate_nm_s": 10,
+    "tuning_margin_ms": 50,
+    "commands": {
+      "identify": "*IDN?",
+      "set_wavelength_nm": "CH{slot}:L={wavelength_nm}",
+      "get_wavelength_nm": "CH{slot}:L?",
+      "set_power_unit_mw": "CH{slot}:MW",
+      "set_power_mw": "CH{slot}:P={power_mw}",
+      "get_power_mw": "CH{slot}:P?",
+      "get_power_limit_mw": "CH{slot}:LIMIT?",
+      "output_on": "CH{slot}:ENABLE",
+      "output_off": "CH{slot}:DISABLE",
+      "get_output": "CH{slot}:ENABLE?"
+    }
+  },
+  "power_meter": {
+    "model": "Thorlabs PM320E",
+    "interface": "TODO: likely VISA/USB or legacy driver",
+    "visa_resource": "TODO",
+    "channel": 1,
+    "commands": {
+      "identify": "*IDN?",
+      "set_wavelength_nm": ":WAVEL{channel}:VAL {wavelength_nm}",
+      "get_wavelength_nm": ":WAVEL{channel}:VAL?",
+      "read_power_w": ":POW{channel}:VAL?"
+    }
+  },
+  "camera": {
+    "model": "unknown USB camera",
+    "opencv_index": "TODO"
+  },
+  "grating_positioning": {
+    "tolerance_um": 5.0,
+    "max_corrections": 3,
+    "max_correction_um": 50.0
+  },
+  "z_approach": {
+    "enabled": false,
+    "start_mm": "TODO: optional; leave TODO to start from current z",
+    "stop_mm": "TODO: lowest allowed z during automatic approach",
+    "step_um": 2.0,
+    "settle_ms": 100,
+    "target_power_w": "TODO: stop when PM320 reaches this power",
+    "visual_change_stop": 0.12,
+    "fiber_angle_deg": 10.0,
+    "angle_axis": "x",
+    "angle_sign": 1.0,
+    "roi": [0.2, 0.2, 0.6, 0.6],
+    "laser_output_on": true,
+    "laser_output_off_on_failure": true,
+    "wavelength_nm": "TODO: only used by aproximar_z.py; batch uses CSV lambda_start_nm",
+    "retract_on_failure": true
+  },
+  "startup": {
+    "home_order": ["z", "x", "y"],
+    "home_timeout_ms": 60000,
+    "laser_output_off_on_start": true,
+    "state_dir": "workspace/state"
+  }
+}

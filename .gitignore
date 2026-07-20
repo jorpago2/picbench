@@ -1,0 +1,29 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+.build/
+release/
+
+# Machine-specific hardware and measurement data
+config/hardware.real.json
+config/hardware.discovered.json
+workspace/*
+!workspace/README.md
+
+# Local/generated assets
+assets/picbench_icon_source.png
+docs/*.aux
+docs/*.fdb_latexmk
+docs/*.fls
+docs/*.log
+docs/*.nav
+docs/*.out
+docs/*.snm
+docs/*.synctex.gz
+docs/*.toc
+docs/presentacion_*.pdf
+docs/presentacion_*.tex
+docs/presentacion_*_slide*.png
+docs/assets/
+docs/archive/

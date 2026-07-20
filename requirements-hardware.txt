@@ -1,0 +1,4 @@
+# Python-side hardware access. Vendor Windows drivers are still required.
+pyvisa>=1.14
+pythonnet>=3.0
+opencv-python>=4.8
