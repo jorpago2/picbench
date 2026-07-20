@@ -1,8 +1,8 @@
-﻿# Instalacion en el PC del laboratorio
+# Laboratory PC installation
 
-Este proyecto se esta desarrollando fuera del PC del laboratorio. En el PC del laboratorio hay que instalar dependencias Python y drivers de fabricante.
+PICBench is developed away from the laboratory computer. The target PC therefore requires the Python dependencies and vendor drivers described below.
 
-## 1. Crear entorno Python
+## 1. Create the Python environment
 
 ```powershell
 py -3 -m venv .venv
@@ -11,19 +11,19 @@ python -m pip install --upgrade pip
 python -m pip install -r .\requirements-hardware.txt
 ```
 
-Si PowerShell bloquea la activacion:
+If PowerShell blocks environment activation:
 
 ```powershell
 Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
 ```
 
-## 2. Instalar drivers Windows
+## 2. Install Windows drivers
 
 - Thorlabs BSC203: Thorlabs Kinesis.
-- Yenista/EXFO T100 por GPIB-USB: driver del adaptador GPIB + runtime VISA, normalmente NI-VISA o Keysight VISA.
-- Thorlabs PM320E: software/driver Thorlabs y NI-VISA si no aparece como instrumento VISA.
+- Yenista/EXFO T100 through GPIB-USB: the GPIB adapter driver and a VISA runtime, normally NI-VISA or Keysight VISA.
+- Thorlabs PM320E: Thorlabs software/driver and NI-VISA if the instrument is not exposed as a VISA resource.
 
-## 3. Verificar sin mover hardware
+## 3. Verify without moving hardware
 
 ```powershell
 python -m scripts.caracterizacion_fotonica --self-test
@@ -32,17 +32,15 @@ python -m scripts.crear_config_real --discovered .\config\hardware.discovered.js
 python -m scripts.validar_config --config .\config\hardware.real.json
 ```
 
-El diagnostico solo enumera recursos. No mueve ejes, no hace homing y no enciende el laser.
+Diagnostics only enumerates resources. It does not move axes, home stages or enable the laser.
 
-## 4. Guardar resultado
+## 4. Preserve the discovery report
 
-Conservar `config/hardware.discovered.json`. `python -m scripts.crear_config_real` lo usa para rellenar los recursos reales del BSC203, laser, power meter y camara cuando no hay ambiguedad.
+Keep `config/hardware.discovered.json`. `python -m scripts.crear_config_real` uses it to populate the BSC203, laser, power meter and camera resources when each match is unambiguous.
 
-## 5. Probar hardware por partes
+## 5. Test hardware incrementally
 
-Revisar `config/hardware.real.json`; si quedan entradas `TODO`, rellenarlas a mano. Luego:
-
-Antes de mover entre dispositivos, rellenar `motion.z_travel_mm` con una altura de viaje segura medida tras homing.
+Review `config/hardware.real.json` and replace any remaining `TODO` values. Set `motion.z_travel_mm` to a physically verified safe travel height before moving between devices.
 
 ```powershell
 python -m scripts.probar_hardware --config .\config\hardware.real.json identify
@@ -59,7 +57,7 @@ python -m scripts.medir_lote --config .\config\hardware.real.json --devices .\wo
 python -m scripts.medir_lote --config .\config\hardware.real.json --devices .\workspace\devices.csv --resume .\workspace\results\batch_YYYYMMDD_HHMMSS --yes
 ```
 
-Movimientos solo con confirmacion explicita:
+Commands that move hardware or change laser state require explicit confirmation:
 
 ```powershell
 python -m scripts.probar_hardware --config .\config\hardware.real.json bsc-home --axis x --yes
@@ -67,4 +65,3 @@ python -m scripts.probar_hardware --config .\config\hardware.real.json bsc-move 
 python -m scripts.probar_hardware --config .\config\hardware.real.json laser-wavelength --nm 1550 --yes
 python -m scripts.probar_hardware --config .\config\hardware.real.json laser-output --on --yes
 ```
-

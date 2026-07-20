@@ -4,6 +4,7 @@ __pycache__/
 .venv/
 .build/
 release/
+tmp/
 
 # Machine-specific hardware and measurement data
 config/hardware.real.json
@@ -25,5 +26,8 @@ docs/*.toc
 docs/presentacion_*.pdf
 docs/presentacion_*.tex
 docs/presentacion_*_slide*.png
+docs/*_presentation_beamer.pdf
+docs/*_presentation_beamer.tex
+docs/*_presentation_beamer_slide*.png
 docs/assets/
 docs/archive/

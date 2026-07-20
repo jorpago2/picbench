@@ -38,7 +38,7 @@ Machine-specific serial numbers, calibration profiles and measurement results re
 
 Stage A maps `X/Y/Z` to BSC203 channels `1/2/3`. Stage B maps `X/Y/Z` to channels `2/1/3`. Exact serial numbers and VISA resources are discovered and selected on the laboratory computer.
 
-Hardware support depends on the vendor drivers, firmware and APIs installed on the target PC. See [Laboratory installation](docs/INSTALACION_PC_LAB.md) for the staged setup procedure.
+Hardware support depends on the vendor drivers, firmware and APIs installed on the target PC. See [Laboratory installation](docs/LAB_PC_INSTALLATION.md) for the staged setup procedure.
 
 ## Windows release
 
@@ -100,7 +100,7 @@ The interface follows the physical laboratory sequence:
 4. **Live** - position both fibers, approach the chip, optimize coupling and monitor the camera and stage map.
 5. **Results** - inspect, compare, zoom and pan measured spectra while a batch is running or after completion.
 
-The device table is a UTF-8 CSV exported from the layout flow. Each row identifies one optical structure, its input/output grating coordinates and its wavelength sweep. The complete contract is documented in [Device CSV format](docs/FORMATO_CSV_DISPOSITIVOS.md).
+The device table is a UTF-8 CSV exported from the layout flow. Each row identifies one optical structure, its input/output grating coordinates and its wavelength sweep. The complete contract is documented in [Device CSV format](docs/DEVICE_CSV_FORMAT.md).
 
 ## Safety model
 
@@ -147,6 +147,12 @@ PICBench writes run data under `workspace/results/`. Depending on the workflow, 
 - optional camera captures used for visual verification.
 
 Measurement data and local state are ignored by Git so the public repository remains free of laboratory identifiers and unpublished results.
+
+## Documentation
+
+- [Laboratory PC installation](docs/LAB_PC_INSTALLATION.md)
+- [Device CSV format](docs/DEVICE_CSV_FORMAT.md)
+- [Photonic characterization plan](docs/PHOTONIC_CHARACTERIZATION_PLAN.md)
 
 ## Validation
 
